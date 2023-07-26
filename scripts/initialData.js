@@ -1,3 +1,4 @@
+import { getDates, getNiceDate } from "./helpers.js";
 import { renderTable } from "./renderTable.js";
 
 export let initialData = [
@@ -42,7 +43,8 @@ export let initialData = [
         name: "Андрій зовсім здурів",
         created: "22/07/2023",
         category: "Random Thought",
-        content: "Раніше десь до 21/11/2022 він був нормальним хлопом, але приблизно 16/06/2023 здурів...",
+        content:
+            "Раніше десь до 21/11/2022 він був нормальним хлопом, але приблизно 16/06/2023 здурів...",
         dates: ["21/11/2022", "16/06/2023"],
         isArchived: false,
     },
@@ -71,9 +73,16 @@ export const deleteNode = id => {
     renderTable(initialData);
 };
 
-export const addNode = noteObj => {
-    noteObj.id = initialData[initialData.length - 1].id + 1;
-    noteObj.isArchived = false;
+export const addNode = (name, category, content) => {
+    const noteObj = {
+        id: initialData[initialData.length - 1].id + 1,
+        name,
+        created: getNiceDate(),
+        category,
+        content,
+        dates: getDates(content),
+        isArchived: false,
+    };
     initialData.push(noteObj);
     renderTable(initialData);
 };
@@ -89,3 +98,20 @@ export const archive = id => {
     });
     renderTable(initialData);
 };
+
+export const editeNode = (id, name, category, content) => {
+    initialData = initialData.map(note => {
+        if (note.id === id) {
+            return {
+                ...note,
+                name: name,
+                category: category,
+                content: content,
+                dates: getDates(content)
+            }
+        } else {
+            return note;
+        }
+    });
+    renderTable(initialData);
+}
