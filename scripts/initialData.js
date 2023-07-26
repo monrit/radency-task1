@@ -1,5 +1,5 @@
 import { getDates, getNiceDate } from "./helpers.js";
-import { renderTable } from "./renderTable.js";
+import { renderTable } from "./render.js";
 
 export let initialData = [
     {
@@ -90,7 +90,7 @@ export const addNode = (name, category, content) => {
 export const archive = id => {
     initialData = initialData.map(note => {
         if (note.id === id) {
-            note.isArchived = true;
+            note.isArchived = !note.isArchived;
             return note;
         } else {
             return note;
@@ -107,11 +107,11 @@ export const editeNode = (id, name, category, content) => {
                 name: name,
                 category: category,
                 content: content,
-                dates: getDates(content)
-            }
+                dates: getDates(content),
+            };
         } else {
             return note;
         }
     });
     renderTable(initialData);
-}
+};

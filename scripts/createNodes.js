@@ -1,23 +1,10 @@
 import { archive, deleteNode } from "./initialData.js";
+import { openEditForm } from "./render.js";
 
 const PROPERTIES = ["name", "created", "category", "content", "dates", "ACTIONS"];
 const BUTTONS = ["Edit", "Arch", "Del"];
 
-const openEditForm = (id, name, category, content) => {
-    const modal = document.getElementById("my-modal");
-    const form = document.querySelector("form");
-    const submitButton = document.getElementById("form-submit-button");
-
-    form.value = id;
-    submitButton.value = "Save";
-    modal.style.display = "block";
-    
-    document.querySelector('#name').value = name;
-    document.querySelector('#category').value = category;
-    document.querySelector('#content').value = content;
-};
-
-const createButtons = data => {
+const createButtons = (data, switchButtonValue) => {
     const div = document.createElement("div");
 
     for (let button of BUTTONS) {
@@ -31,14 +18,14 @@ const createButtons = data => {
                 openEditForm(data.id, data.name, data.category, data.content)
             ); //memory leak
         }
-        actionButton.innerText = button;
+        actionButton.innerText = switchButtonValue && button === "Arch" ? "Unarchive": button;
         div.appendChild(actionButton);
     }
 
     return div;
 };
 
-export const createNode = data => {
+export const createNode = (data, switchButtonValue) => {
     const tr = document.createElement("tr");
     tr.id = data.id;
 
@@ -47,7 +34,33 @@ export const createNode = data => {
         if (prop !== "ACTIONS") {
             td.innerText = data[prop];
         } else {
-            td.appendChild(createButtons(data));
+            td.appendChild(createButtons(data, switchButtonValue));
+        }
+        tr.appendChild(td);
+    }
+    return tr;
+};
+
+const countByCategory = (initialData, category, isArchived) => {
+    return initialData.reduce((accum, value) => {
+        if (value.category === category && value.isArchived === isArchived) {
+            return accum + 1;
+        } else {
+            return accum;
+        }
+    }, 0);
+};
+
+export const createStatsNode = (category, initialData) => {
+    const tr = document.createElement("tr");
+    for (let i = 0; i < 3; i++) {
+        const td = document.createElement("td");
+        if (i === 0) {
+            td.innerText = category;
+        } else if (i === 1) {
+            td.innerText = countByCategory(initialData, category, false);
+        } else {
+            td.innerText = countByCategory(initialData, category, true);
         }
         tr.appendChild(td);
     }

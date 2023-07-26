@@ -1,10 +1,11 @@
 import { addNode, editeNode, initialData } from "./initialData.js";
-import { renderTable } from "./renderTable.js";
+import { renderTable } from "./render.js";
 
 const modal = document.getElementById("my-modal");
 const closeModal = document.getElementById("close-modal");
 const addNoteButton = document.getElementById("add-note-button");
 const submitButton = document.getElementById("form-submit-button");
+const switchListButton = document.getElementById("switch-list-button");
 const form = document.querySelector("form");
 
 closeModal.addEventListener("click", () => {
@@ -40,6 +41,15 @@ form.addEventListener("submit", event => {
     category.value = "Task";
     content.value = "";
     modal.style.display = "none";
+});
+
+switchListButton.addEventListener("click", () => {
+    if (switchListButton.value === "true") {
+        switchListButton.value = "false";
+    } else {
+        switchListButton.value = "true";
+    }
+    renderTable(initialData);
 });
 
 renderTable(initialData);
