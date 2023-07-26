@@ -5,6 +5,7 @@ const CATEGORIES = ["Task", "Random Thought", "Idea"];
 const renderStatsTable = initialData => {
     const statsTable = document.getElementById("stats-table");
     statsTable.innerHTML = "";
+    
     for (let i = 0; i < CATEGORIES.length; i++) {
         statsTable.appendChild(createStatsNode(CATEGORIES[i], initialData));
     }
@@ -14,8 +15,6 @@ export const renderTable = initialData => {
     const notesList = document.getElementById("notes-list");
     const switchListButton = document.getElementById("switch-list-button");
     const switchButtonValue = switchListButton.value === "true" ? true : false;
-    //clear listeners
-    
     notesList.innerHTML = "";
 
     for (let i = 0; i < initialData.length; i++) {

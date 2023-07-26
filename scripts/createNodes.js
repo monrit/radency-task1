@@ -10,15 +10,15 @@ const createButtons = (data, switchButtonValue) => {
     for (let button of BUTTONS) {
         const actionButton = document.createElement("button");
         if (button === "Del") {
-            actionButton.addEventListener("click", () => deleteNode(data.id)); //memory leak
+            actionButton.addEventListener("click", () => deleteNode(data.id));
         } else if (button === "Arch") {
-            actionButton.addEventListener("click", () => archive(data.id)); //memory leak
+            actionButton.addEventListener("click", () => archive(data.id));
         } else {
             actionButton.addEventListener("click", () =>
                 openEditForm(data.id, data.name, data.category, data.content)
-            ); //memory leak
+            );
         }
-        actionButton.innerText = switchButtonValue && button === "Arch" ? "Unarchive": button;
+        actionButton.innerText = switchButtonValue && button === "Arch" ? "Unarchive" : button;
         div.appendChild(actionButton);
     }
 
@@ -38,6 +38,7 @@ export const createNode = (data, switchButtonValue) => {
         }
         tr.appendChild(td);
     }
+    
     return tr;
 };
 
@@ -53,6 +54,7 @@ const countByCategory = (initialData, category, isArchived) => {
 
 export const createStatsNode = (category, initialData) => {
     const tr = document.createElement("tr");
+
     for (let i = 0; i < 3; i++) {
         const td = document.createElement("td");
         if (i === 0) {
@@ -64,5 +66,6 @@ export const createStatsNode = (category, initialData) => {
         }
         tr.appendChild(td);
     }
+
     return tr;
 };

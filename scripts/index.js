@@ -8,9 +8,17 @@ const submitButton = document.getElementById("form-submit-button");
 const switchListButton = document.getElementById("switch-list-button");
 const form = document.querySelector("form");
 
-closeModal.addEventListener("click", () => {
+const closeModalFunction = () => {
+    const name = document.querySelector("#name");
+    const category = document.querySelector("#category");
+    const content = document.querySelector("#content");
+    name.value = "";
+    category.value = "Task";
+    content.value = "";
     modal.style.display = "none";
-});
+};
+
+closeModal.addEventListener("click", closeModalFunction);
 
 addNoteButton.addEventListener("click", () => {
     form.value = "NEW";
@@ -20,16 +28,16 @@ addNoteButton.addEventListener("click", () => {
 
 window.addEventListener("click", event => {
     if (event.target === modal) {
-        modal.style.display = "none";
+        closeModalFunction();
     }
 });
 
 form.addEventListener("submit", event => {
     event.preventDefault();
 
-    const name = document.querySelector('#name');
-    const category = document.querySelector('#category');
-    const content = document.querySelector('#content');
+    const name = document.querySelector("#name");
+    const category = document.querySelector("#category");
+    const content = document.querySelector("#content");
 
     if (form.value === "NEW") {
         addNode(name.value, category.value, content.value);
@@ -37,10 +45,7 @@ form.addEventListener("submit", event => {
         editeNode(form.value, name.value, category.value, content.value);
     }
 
-    name.value = "";
-    category.value = "Task";
-    content.value = "";
-    modal.style.display = "none";
+    closeModalFunction();
 });
 
 switchListButton.addEventListener("click", () => {
