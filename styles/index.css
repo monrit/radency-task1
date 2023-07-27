@@ -1,0 +1,21 @@
+:root {
+    --light: #FBFEF9;
+    --dark: #191923;
+}
+
+body {
+    padding: 8px;
+}
+
+#action-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 6px;
+}
+
+.cut { 
+    max-width: 170px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
