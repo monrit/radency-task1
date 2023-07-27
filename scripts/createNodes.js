@@ -1,3 +1,4 @@
+import { archiveIcon, deleteIcon, editIcon, unarchiveIcon } from "./icons.js";
 import { archive, deleteNode } from "./initialData.js";
 import { openEditForm } from "./render.js";
 
@@ -9,16 +10,19 @@ const createButtons = (data, switchButtonValue) => {
 
     for (let button of BUTTONS) {
         const actionButton = document.createElement("button");
+        actionButton.classList.add("btn");
         if (button === "Del") {
             actionButton.addEventListener("click", () => deleteNode(data.id));
+            actionButton.innerHTML = deleteIcon;
         } else if (button === "Arch") {
             actionButton.addEventListener("click", () => archive(data.id));
+            actionButton.innerHTML = switchButtonValue ? unarchiveIcon: archiveIcon;
         } else {
             actionButton.addEventListener("click", () =>
-                openEditForm(data.id, data.name, data.category, data.content)
+            openEditForm(data.id, data.name, data.category, data.content)
             );
+            actionButton.innerHTML = editIcon;
         }
-        actionButton.innerText = switchButtonValue && button === "Arch" ? "Unarchive" : button;
         div.appendChild(actionButton);
     }
 
@@ -32,6 +36,10 @@ export const createNode = (data, switchButtonValue) => {
     for (let prop of PROPERTIES) {
         const td = document.createElement("td");
         if (prop !== "ACTIONS") {
+            if (prop === "content" || prop === "dates") {
+                td.classList.add("cut");
+                td.title = data[prop];
+            }
             td.innerText = data[prop];
         } else {
             td.appendChild(createButtons(data, switchButtonValue));

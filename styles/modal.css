@@ -7,15 +7,48 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
+.my-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    background-color: var(--light);
+    margin: 6% auto;
     padding: 20px;
-    border: 1px solid #888;
+    width: 40%;
+    height: fit-content;
+    border: 3px solid var(--dark);
+    border-radius: 8px;
+}
+
+.my-modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.modal-content form label {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.input {
+    padding: 5px;
+    font-size: 16px;
+}
+
+#content {
+    height: 100px;
+    resize: none;
+}
+
+#form-submit-button {
     width: 80%;
+    margin: 10px auto;
+    font-size: 18px;
 }
 
 .close {

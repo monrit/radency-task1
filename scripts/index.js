@@ -50,8 +50,12 @@ form.addEventListener("submit", event => {
 
 switchListButton.addEventListener("click", () => {
     if (switchListButton.value === "true") {
+        switchListButton.classList.remove("btn-secondary");
+        switchListButton.classList.add("btn-outline-secondary");
         switchListButton.value = "false";
     } else {
+        switchListButton.classList.remove("btn-outline-secondary");
+        switchListButton.classList.add("btn-secondary");
         switchListButton.value = "true";
     }
     renderTable(initialData);
